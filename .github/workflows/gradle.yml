@@ -28,4 +28,4 @@ jobs:
 
       # Gradle build task
     - name: Invoke gradle task - BUILD
-      run: ./gradlew
+      run: ./gradlew build
