@@ -6,26 +6,25 @@ on:
       - 'src/**'
 
 jobs:
-
   gradle-build:
-
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      # Check-out the repo under $GITHUB_WORKSPACE, so this workflow can access it.
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Set up JDK 19
+        uses: actions/setup-java@v1
+        with:
+          java-version: 19
 
-      # Set up JDK
-    - name: Set up JDK 19
-      uses: actions/setup-java@v1
-      with:
-        java-version: 19
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Convert gradlew to Unix format
+        run: dos2unix gradlew
 
-      # Gradle build task
-    - name: Invoke gradle task - BUILD
-      run: ./gradlew build
+      - name: Debug: Check gradlew permissions
+        run: ls -la gradlew
+
+      - name: Invoke gradle task - BUILD
+        run: ./gradlew build
