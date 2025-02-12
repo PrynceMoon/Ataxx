@@ -1,4 +1,4 @@
-# Ataxx  [![Docker Build & Push](https://github.com/softeng2324-inf-uniba/progetto-manning/actions/workflows/docker_build&push.yml/badge.svg)](https://github.com/softeng2324-inf-uniba/progetto-manning/actions/workflows/docker_build&push.yml)
+# Ataxx  [![Gradle Build](https://github.com/PrynceMoon/Ataxx/actions/workflows/gradle_build.yml/badge.svg)](https://github.com/PrynceMoon/Ataxx/actions/workflows/gradle_build.yml)
 
 La struttura della repository si presenta nel seguente modo:
 
