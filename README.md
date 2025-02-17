@@ -38,7 +38,7 @@ Di seguito una panoramica delle classi (presenti nella cartella `src/main/java/i
   *Gestione delle mosse.*  
   Con la chiamata di essa, in base al turno del giocatore corrente è possibilie far visualizzare ad esso tutte le mosse possibili che può eseguire con ogni pedina in suo possesso.
 
-  - **`Partita.java`**  
+- **`Partita.java`**  
   *Logica della partita.*  
   Coordina il flusso della partita, gestisce i turni dei giocatori, controlla le condizioni di vittoria e determina quando la partita è conclusa.
 
