@@ -1,56 +1,64 @@
-# Ataxx  [![Gradle Build](https://github.com/PrynceMoon/Ataxx/actions/workflows/gradle_build.yml/badge.svg)](https://github.com/PrynceMoon/Ataxx/actions/workflows/gradle_build.yml)
+# Ataxx
 
-La struttura della repository si presenta nel seguente modo:
+Ataxx è un gioco da tavolo strategico per due giocatori in cui l'obiettivo è conquistare il maggior numero possibile di caselle sul tabellone. Questo progetto implementa il gioco in Java, offrendo una solida struttura per la logica di gioco, la gestione dei turni e il controllo dello stato della scacchiera.
 
-```plaintext
-|-- .github
-|    |-- workflows
-|    |      |-- ingsw2324.yml
-|-- build
-|    |-- reports
-|    |      |-- checkstyle
-|    |      |-- spotbugs
-|    |      |-- tests/test
-|–– config
-|    |–– checkstyle
-|–– docs
-|    |–– Assegnazione progetto.md
-|    |–– Guida per lo studente.md
-|    |–– img
-|    |–– Report.md
-|–– drawings
-|–– gradle
-|–– lib
-|–– res
-|–– src
-|    |–– main
-|    |–– test
-|–– .gitignore
-|–– build.gradle
-|–– README.md
-|–– gradlew
-|–– gradle.bat
-|–– settings.gradle
-```
+## Caratteristiche principali
 
-Nel seguito si dettagliano i ruoli dei diversi componenti:
+- **Logica di gioco completa**:  
+  - Gestione del tabellone (di dimensione tipica 7x7 o configurabile) e delle caselle.
+  - Meccanismi di duplicazione e salto delle pedine.
+  - Conversione automatica delle pedine avversarie adiacenti a quelle mosse.
+  - Verifica delle condizioni di fine partita (quando il tabellone è pieno o non sono più possibili mosse).
 
-- `.github/workflows/ingsw2324.yml`: dettaglia le direttive per assicurare la *continuous integration* attraverso l’uso di GitHub Actions;
-- `build/`: ospita la sottocartella `reports/`, contenente gli output dei tool automatici di test e controllo di qualità;
-- `config/`: ospita i file di configurazione. L’unica configurazione di base richiesta è quella per il tool checkstyle;
-- `docs/`: ospita la documentazione di progetto, incluse le figure (nella sottocartella `img/`).
-  Il file `Report.md` verrà usato per redigere la relazione finale del progetto.
-  La cartella raccoglie inoltre:
-  - `Assegnazione progetto.md`: contenente la descrizione dettagliata del progetto assegnato;
-  - `Guida per lo studente.md`: contenente la descrizione di tutti i passi di configurazione necessari per l'attivazione del flusso di lavoro a supporto dello sviluppo del progetto;
-- `gradle/`: ospita il `.jar` relativo al sistema di gestione delle dipendenze *Gradle*.
-- `lib`: include eventuali librerie esterne utilizzate dal progetto.
-- `res`: contiene risorse varie utilizzate dal sistema
-- `src`: cartella principale del progetto, in cui scrivere tutto il codice dell’applicazione. In `main/` ci saranno i file sorgente e `test/` conterrà i test di unità previsti.
-- `drawings/`: contiene tutti i diagrammi UML usati per descrivere il progetto.
-- `.gitignore`: specifica tutti i file che devono essere esclusi dal sistema di controllo versione.
-- `build.gradle`: esplicita le direttive e la configurazione di *Gradle*.
-- `gradlew` e `gradlew.bat`: eseguibili di *Gradle*, rispettivamente dedicati a Unix e Windows.
-- `settings.gradle`: file di configurazione di *Gradle*.
+- **Struttura modulare**:  
+  - Il codice è organizzato nel package `it.uniba.app`, in modo da mantenere una chiara separazione delle responsabilità.
+  - Le classi sono suddivise per gestire in modo indipendente la logica di gioco, il modello del tabellone, i giocatori e le mosse.
 
-In alcune cartelle è possibile notare la presenza di un unico file nascosto `.keep`: questo ha il solo scopo di richiedere a Git l’inclusione delle cartelle in cui è contenuto (Git esclude dal *versioning* le cartelle vuote). Pertanto, il file può essere ignorato o eventualmente cancellato nel momento in cui si inserisca almeno un altro file all’interno della cartella.
+## Descrizione dei file principali
+
+Di seguito una panoramica delle classi (presenti nella cartella `src/main/java/it/uniba/app`) e delle loro responsabilità:
+
+- **`App.java`**  
+  *Punto di ingresso dell'applicazione.*  
+  Contiene il metodo `main()`, che avvia il gioco e inizializza la base per effettuare la partita o eseguire dei comandi prima della partita, applicando una logica più complessa al gioco.
+
+- **`BloccaCella.java`**  
+  *Gestione del tabellone di gioco inserendo delle celle che non possono essere popolate dalle pedine dei giocatori.*  
+  Si offre la possibilità di bloccare delle celle del tabellone, in questo modo le celle bloccate non potranno essere popolate dalle pedine dei giocatori, questo meccanismo può essere eseguito per un massimo di 9 volte ad ogni partita.
+
+- **`Giocatore.java`**  
+  *Inizializzazione dei giocatori.*  
+  Qui vengono inizializzati i giocatori che effettueranno la partita, durante l'esecuzione di quest'ultima i giocatori applicheranno dei comandi per andar avanti durante la partita.
+
+- **`Menu.java`**  
+  *Inizializzazione dei comandi.*  
+  Qui vengono inizializzati tutti i comandi che i giocatori potranno eseguire durante il proprio turno.
+
+- **`MosseDisponibili.java`**  
+  *Gestione delle mosse.*  
+  Con la chiamata di essa, in base al turno del giocatore corrente è possibilie far visualizzare ad esso tutte le mosse possibili che può eseguire con ogni pedina in suo possesso.
+
+  - **`Partita.java`**  
+  *Logica della partita.*  
+  Coordina il flusso della partita, gestisce i turni dei giocatori, controlla le condizioni di vittoria e determina quando la partita è conclusa.
+
+- **`Tavolo.java`**  
+  *Inizializzazione e gestione del tabellone di gioco.*  
+  Qui viene inizializzato il tavolo di gioco con le 4 pedine(2 per ogni giocatore) agli angoli, tutte le funzioni di stampa del tavolo sia senza le celle bloccate che con le celle bloccate.
+
+## Requisiti e installazione
+
+Per compilare ed eseguire il progetto sono necessari:
+- **Java JDK 8 (o superiore)**
+- (Eventuale) **Maven/Gradle** se il progetto è configurato con un sistema di build; in questo caso, consulta il file `pom.xml` o `build.gradle` presente nella root del progetto.
+
+### Compilazione ed esecuzione da linea di comando
+
+Se utilizzi la compilazione manuale, puoi procedere come segue:
+  
+```bash
+# Compilazione (assumendo di trovarti nella root del progetto)
+javac -d bin src/main/java/it/uniba/app/*.java
+
+# Esecuzione
+java -cp bin it.uniba.app.Ataxx
